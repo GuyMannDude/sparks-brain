@@ -186,6 +186,14 @@ The idea that AI assistants need persistent, compounding memory was articulated 
 
 ---
 
+## Support
+
+If Sparks Brain saves you time, consider sponsoring the project:
+
+[GitHub Sponsors — GuyMannDude](https://github.com/sponsors/GuyMannDude)
+
+---
+
 ## License
 
 MIT — use it, fork it, make it yours.
