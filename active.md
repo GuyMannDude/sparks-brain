@@ -22,6 +22,8 @@ What's happening right now. Current work, priorities, blockers, next actions.
 
 ## Recently Completed
 - [x] **Mnemo-Claude Bridge** (2026-03-24) — CC has persistent long-term memory via mnemo-cortex on THE VAULT. Agent ID "cc", isolated writes to `memory/cc/`, cross-agent reads from all agents (Rocky, Sparky, CC) via shared L2+L3. Two hook scripts: `mnemo-startup.sh` (session start context pull) and `mnemo-writeback.sh` (session end archive). agentb_bridge.py patched for multi-agent isolation. CLAUDE.md wired with startup/shutdown hooks.
+- [x] **Mnemo-cortex Claude Code integration packaged** (2026-03-24) — `integrations/claude-code/` added to mnemo-cortex repo with install.sh, hook scripts, README. PR #1 merged to master.
+- [x] **projectsparks.ai/mnemo-cortex page updated** (2026-03-24) — "Deep Recall" branding, Claude Code integration section with model tiers and install command, neon steampunk styling (brighter gold/amber/copper), bumped text sizes, added /sessions endpoint. Deployed via Firebase.
 - [x] **NemoClaw clean reinstall** (2026-03-23) — official installer, all checks pass, no more proxy hacks
 - [x] Sparky gateway fix — resolved by clean reinstall (identity, networking, port forward all handled by installer)
 - [x] Sparks Brain populated with real infrastructure data (2026-03-23)
