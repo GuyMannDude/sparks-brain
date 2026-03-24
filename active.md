@@ -10,6 +10,7 @@ What's happening right now. Current work, priorities, blockers, next actions.
 - [ ] **LAN access for Sparky gateway** — Gateway works on localhost:18789 on THE VAULT. Need to rebind to 0.0.0.0 so Guy can reach it from IGOR at `http://artforge:18789/`. Command: `openshell forward stop 18789 sparks-nemo && openshell forward start -d 0.0.0.0:18789 sparks-nemo`
 - [ ] **Heartbeat cost leak fix** — Cron heartbeat defaulting to Gemini Pro (~$2.40/day). Needs per-session model override.
 - [ ] **Rocky OpenClaw update** — IGOR at v2026.3.13, update to v2026.3.22 pending green light
+- [x] **Mnemo-cortex reachable from pod** — verified with curl from inside sandbox, status: ok. UFW rule + clean reinstall fixed it.
 - [ ] **Add mnemo-cortex network policy preset** — need to re-add custom `mnemo-cortex.yaml` preset to the clean NemoClaw install's presets dir (UFW rule survived but the policy preset file was part of the old install)
 
 ## Up Next

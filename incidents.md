@@ -23,7 +23,8 @@ The runbook. Every bug that cost real debugging time, documented so it never cos
   - `nemoclaw sparks-nemo status` → Ready (Landlock + seccomp + netns)
   - `openshell forward list` → running (PID managed by openshell, 127.0.0.1:18789)
   - Gateway serves OpenClaw Control HTML on localhost:18789
-  - Sandbox can reach mnemo-cortex at `host.docker.internal:50001` (UFW rule from earlier session survived)
+  - Sandbox can reach mnemo-cortex at `host.docker.internal:50001` — verified with `curl` from inside sandbox (returned `status: ok`). UFW rule from earlier session survived, and the clean reinstall resolved the pod network isolation.
+  - Device identity error resolved — the official installer handles identity setup correctly (no more "pairing required" errors).
   - Mnemo-cortex and Ollama completely untouched throughout
 **Prevention:** Always use the official NemoClaw installer. Never `npm install -g` from a tarball or unknown source. The installer handles gateway, identity, port forwarding, and policy setup correctly. The npm registry `nemoclaw` package is a 222-byte name squatter — the real source is `github.com/NVIDIA/NemoClaw`.
 

@@ -31,7 +31,7 @@ Collaborators, agents, and roles in the Project Sparks ecosystem.
 ## Sparky
 - **Role:** Agent inside NemoClaw sandbox on THE VAULT. Runs Nemotron 3 Super free via OpenRouter. CLI only (no gateway/Telegram).
 - **Platform:** OpenClaw v2026.3.11 inside NemoClaw pod
-- **Current issue:** Cannot reach mnemo-cortex (port 50001) due to NemoClaw pod network isolation. Also: device identity error on gateway.
+- **Mnemo access:** Can reach mnemo-cortex at `host.docker.internal:50001` from inside the pod (verified with curl, status: ok).
 
 ## Opie (CC / Claude Code)
 - **Role:** Claude Code on IGOR. Execution engine. Reads the brain, does the work, writes back what it learns.
