@@ -35,13 +35,16 @@ Every service, tool, and dependency in the Project Sparks ecosystem.
 - **Rocky config:** `~/.openclaw/workspace/` on IGOR
 - **Notes:** Rocky's SOUL.md and MEMORY.md in `~/.openclaw/workspace/` are sacred — never modify without asking.
 
-## Mnemo Cortex
-- **Version:** 2.0 (SQLite + FTS5, TypeScript)
-- **Server:** THE VAULT (artforge), port 50001
+## Mnemo Cortex / AgentB Bridge
+- **Deployed version:** agentb_bridge v0.1.0 (standalone FastAPI, NOT the mnemo-cortex v2 repo)
+- **Server:** THE VAULT (artforge), port 50001, systemd service `agentb-bridge`
 - **From IGOR:** `http://artforge:50001`
-- **Repo:** `~/github/mnemo-cortex/` (local), GuyMannDude/mnemo-cortex (GitHub)
-- **Daemons:** Watcher + refresher on THE VAULT (systemd user services)
-- **LLM summarizer:** OpenRouter / gemini-2.5-flash with deterministic fallback
+- **Source:** `~/agentb-bridge/agentb_bridge.py` on THE VAULT
+- **Repo (reference):** `~/github/mnemo-cortex/` (local), GuyMannDude/mnemo-cortex (GitHub)
+- **LLM:** Ollama local — qwen2.5:32b-instruct (reasoning) + nomic-embed-text (embedding)
+- **Endpoints:** `/health`, `/context`, `/preflight`, `/writeback`, `/ingest`
+- **Cache tiers:** L1 (pre-built bundles) → L2 (embedding index) → L3 (brute-force scan)
+- **Multi-agent:** Writes isolated to `~/.agentb/memory/{agent_id}/`, reads span all agents
 - **CRITICAL:** No mnemo-cortex process should ever run on IGOR.
 
 ## Sparks Router
@@ -62,6 +65,19 @@ Every service, tool, and dependency in the Project Sparks ecosystem.
 - **What it is:** Persistent markdown memory system for Claude Code
 - **Repo:** `~/github/sparks-brain/` (local), GuyMannDude/sparks-brain (GitHub)
 - **How it works:** CC reads brain files at session start, updates during work, commits back via Git. No database, no vector store.
+
+## Mnemo-Claude Bridge
+- **What it is:** Hook scripts that give CC persistent long-term memory via mnemo-cortex
+- **Agent ID:** `cc`
+- **Hooks:**
+  - `~/github/sparks-brain/hooks/mnemo-startup.sh` — pulls context at session start (CC's own + Rocky's recent activity)
+  - `~/github/sparks-brain/hooks/mnemo-writeback.sh` — archives session summary at session end
+- **Write isolation:** CC writes to `~/.agentb/memory/cc/` on THE VAULT
+- **Read access:** Cross-agent — reads all agents via shared L2 index + L3 full scan across all `memory/*/` subdirs
+- **Server:** agentb_bridge on THE VAULT (artforge:50001), systemd service `agentb-bridge`
+- **Patched:** `~/agentb-bridge/agentb_bridge.py` — added `agent_id` to WritebackRequest, agent-based subdirectory writes, cross-agent L3 scan. Backup at `agentb_bridge.py.bak`.
+- **Cost:** $0 — all embedding/reasoning via local Ollama (qwen2.5:32b-instruct + nomic-embed-text)
+- **Wired in:** `~/CLAUDE.md` STARTUP block (step 3) and SESSION END block
 
 ## Ollama
 - **Location:** THE VAULT

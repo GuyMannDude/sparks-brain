@@ -2,7 +2,7 @@
 
 What's happening right now. Current work, priorities, blockers, next actions.
 
-**Last updated:** 2026-03-23
+**Last updated:** 2026-03-24
 
 ---
 
@@ -21,6 +21,7 @@ What's happening right now. Current work, priorities, blockers, next actions.
 - **Heartbeat re-enable:** Needs OpenClaw per-session model override feature to force cron jobs to free tier. Job disabled until then.
 
 ## Recently Completed
+- [x] **Mnemo-Claude Bridge** (2026-03-24) — CC has persistent long-term memory via mnemo-cortex on THE VAULT. Agent ID "cc", isolated writes to `memory/cc/`, cross-agent reads from all agents (Rocky, Sparky, CC) via shared L2+L3. Two hook scripts: `mnemo-startup.sh` (session start context pull) and `mnemo-writeback.sh` (session end archive). agentb_bridge.py patched for multi-agent isolation. CLAUDE.md wired with startup/shutdown hooks.
 - [x] **NemoClaw clean reinstall** (2026-03-23) — official installer, all checks pass, no more proxy hacks
 - [x] Sparky gateway fix — resolved by clean reinstall (identity, networking, port forward all handled by installer)
 - [x] Sparks Brain populated with real infrastructure data (2026-03-23)

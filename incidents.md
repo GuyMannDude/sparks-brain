@@ -6,6 +6,19 @@ The runbook. Every bug that cost real debugging time, documented so it never cos
 
 ---
 
+## agentb_bridge.py patched for multi-agent memory isolation
+**Date:** 2026-03-24
+**Symptom:** All agents (Rocky, CC) writing to the same flat `~/.agentb/memory/` directory. No tenant isolation. CC's test writeback mixed in with Rocky's memories.
+**Cause:** The agentb_bridge.py on THE VAULT was single-tenant by design — `agent_id` was accepted in requests but ignored for storage paths. L3 scan only searched the root memory dir.
+**Fix:** Three patches to `~/agentb-bridge/agentb_bridge.py` on THE VAULT:
+  1. Added `agent_id: Optional[str]` field to `WritebackRequest` Pydantic model
+  2. Writeback now saves to `~/.agentb/memory/{agent_id}/` subdirectory (defaults to `default/`)
+  3. L3 scan and idle precache now glob `memory/*.json` AND `memory/*/*.json` for cross-agent reads
+  - Migrated existing files: Rocky's 3 files → `memory/rocky/`, CC's 1 file → `memory/cc/`
+  - Restarted via `sudo systemctl restart agentb-bridge`
+  - Backup at `~/agentb-bridge/agentb_bridge.py.bak`
+**Prevention:** Any new agent registering with mnemo-cortex should use a unique `agent_id`. The bridge now auto-creates subdirectories.
+
 ## Heartbeat cron burning Gemini Pro credits on empty HEARTBEAT.md
 **Date:** 2026-03-23
 **Symptom:** Rocky's "System Health Heartbeat" cron job running every hour, costing ~$2.40/day in OpenRouter credits (Gemini 3.1 Pro).
