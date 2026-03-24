@@ -7,7 +7,9 @@ What's happening right now. Current work, priorities, blockers, next actions.
 ---
 
 ## In Progress
-- [ ] **Sparky gateway fix** — Device identity error + pod network isolation preventing Sparky from reaching mnemo-cortex
+- [x] **Sparky gateway fix** — DONE. Both issues resolved:
+  1. Pod→mnemo-cortex: added network policy preset + UFW rule
+  2. Device identity: synced /sandbox/ identity to /root/, restarted gateway. RPC probe: ok.
 - [ ] **Heartbeat cost leak fix** — Cron heartbeat defaulting to Gemini Pro (~$2.40/day). Needs per-session model override.
 - [ ] **Rocky OpenClaw update** — IGOR at v2026.3.13, update to v2026.3.22 pending green light
 
@@ -17,7 +19,7 @@ What's happening right now. Current work, priorities, blockers, next actions.
 - [ ] Test browser fix that was pending before this session
 
 ## Blocked
-- **Sparky↔Mnemo:** NemoClaw pod network isolation blocks Sparky from reaching mnemo-cortex (port 50001). Fix requires NemoClaw Compatibility Spec YAML presets.
+- ~~Sparky↔Mnemo: RESOLVED — policy preset + UFW rule applied~~
 - **Heartbeat:** Needs OpenClaw per-session model override feature to force cron jobs to free tier.
 
 ## Recently Completed

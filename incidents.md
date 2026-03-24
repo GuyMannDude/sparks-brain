@@ -6,19 +6,26 @@ The runbook. Every bug that cost real debugging time, documented so it never cos
 
 ---
 
-## Sparky gateway device identity error
-**Date:** 2026-03-23 (ongoing)
-**Symptom:** Sparky gateway failing with device identity error. Gateway cannot route correctly.
-**Cause:** Under investigation.
-**Fix:** TBD — active blocker.
-**Prevention:** TBD.
+## Sparky gateway device identity error — RESOLVED
+**Date:** 2026-03-23
+**Symptom:** `openclaw gateway status` inside sandbox returns "pairing required" (code 1008). Gateway rejects all CLI connections.
+**Cause:** Device identity mismatch between two OpenClaw config paths inside the sandbox:
+  - `/sandbox/.openclaw/identity/device.json` → device `b762f0...` (registered with gateway at setup, paired)
+  - `/root/.openclaw/identity/device.json` → device `98743b...` (auto-generated, NOT paired)
+  The gateway was set up as the `sandbox` user (OpenShell default), but CLI commands run as `root` inside the container. Root's identity was never paired with the gateway. `dangerouslyDisableDeviceAuth: true` only affects the control UI, not WebSocket RPC auth.
+**Fix:** Copied identity + device-auth files from `/sandbox/.openclaw/identity/` to `/root/.openclaw/identity/`, then killed and restarted the gateway (`openclaw gateway run` in foreground, since systemd is unavailable in containers). Gateway now reports `RPC probe: ok`.
+**Prevention:** When running OpenClaw inside NemoClaw containers, ensure the identity files are synced between the sandbox user home and root. Or run all CLI commands as the same user that initialized the gateway. This is a known edge case in containerized OpenClaw — the identity should be a single source, not duplicated per user.
 
-## Sparky/Mnemo pod network isolation
-**Date:** 2026-03-23 (ongoing)
-**Symptom:** Sparky (inside NemoClaw pod) cannot reach mnemo-cortex on THE VAULT at port 50001.
-**Cause:** NemoClaw pod network isolation blocks host port access by default. The pod is sandboxed and cannot see host services.
-**Fix:** Pending — need drop-in YAML network policy presets via NemoClaw Compatibility Spec to allow pod→host traffic on port 50001.
-**Prevention:** Any new service that needs pod↔host communication must have a network policy preset added to NemoClaw before deployment.
+## Sparky/Mnemo pod network isolation — RESOLVED
+**Date:** 2026-03-23
+**Symptom:** Sparky (inside NemoClaw pod) cannot reach mnemo-cortex on THE VAULT at port 50001. `curl http://host.docker.internal:50001/health` times out from inside the sandbox.
+**Cause:** Two layers of blocking:
+  1. **OpenShell sandbox policy** — no network policy entry existed for host-local traffic on port 50001. Only external HTTPS endpoints were allowed.
+  2. **UFW on THE VAULT** — INPUT policy is DROP, and port 50001 was not in the allow list. Docker bridge traffic (172.x.x.x) was silently dropped.
+**Fix:**
+  1. Created custom `mnemo-cortex.yaml` policy preset allowing `host.docker.internal:50001` and `host.openshell.internal:50001`. Installed to NemoClaw presets dir. Applied via `openshell policy set`.
+  2. Added UFW rule: `sudo ufw allow from 172.16.0.0/12 to any port 50001 proto tcp`
+**Prevention:** Any host service that needs to be reachable from NemoClaw pods requires BOTH: (a) an OpenShell network policy entry, and (b) a UFW allow rule for Docker bridge subnets (172.16.0.0/12). Check both layers.
 
 ## Heartbeat cost leak
 **Date:** 2026-03-23 (ongoing)
