@@ -29,11 +29,38 @@ Every service, tool, and dependency in the Project Sparks ecosystem.
 ## OpenClaw
 - **What it is:** Agent framework. Rocky and Sparky run on it.
 - **Versions:**
-  - IGOR: v2026.3.13 (v2026.3.22 update pending green light)
+  - IGOR: v2026.4.1 (updated April 1)
   - THE VAULT (host): v2026.3.22
   - Sparky (NemoClaw pod): v2026.3.11
 - **Rocky config:** `~/.openclaw/workspace/` on IGOR
+- **Rocky model:** Grok 4 Fast via OpenRouter through Rocky's Switch (port 50060)
 - **Notes:** Rocky's SOUL.md and MEMORY.md in `~/.openclaw/workspace/` are sacred — never modify without asking.
+
+## Chat Portal (Rocky's Chat Portal)
+- **What it is:** Public-facing chat interface where visitors talk to Rocky about Project Sparks products
+- **Repo:** ~/github/sparks-router-v2-codex/ (GuyMannDude/sparks-router-v2, main branch)
+- **Port:** 50085
+- **Stack:** Zero-dependency Node.js (ESM), static file serving, no express
+- **LLM:** Via Rocky's Switch (50060). Free tier: Grok 4 Fast. Paid tier: Claude Sonnet 4.
+- **Memory:** Portal Mnemo on IGOR:50002 (separate instance, ~/.agentb-portal/ data dir). Per-customer memory via cookie UUID → Mnemo agent_id.
+- **Content:** 8 markdown docs in content/ (FrankenClaw, FrankenTools, Mnemo, Switch, SPARC, OpenClaw, NemoClaw, Modular Vision)
+- **Stripe:** Account acct_1SzUT7Dk4CDADjbW (ProjectSparks). Product: Rocky Chat — Sonnet Upgrade (prod_UGTmzzSvtWaMer). Price: $2.99 (price_1THwp0Dk4CDADjbWAPtR4GxV). Needs publishable key from dashboard.
+- **Status:** Running locally, Guy testing tomorrow. Test mode (instant upgrade) until Stripe publishable key added.
+
+## Rocky's Switch
+- **Version:** 1.1.0
+- **Port:** 50060
+- **Config dir:** ~/.rockys-switch/ (config.json + keys.json, 0600 permissions)
+- **Service:** rockys-switch.service (systemd user)
+- **Repo:** ~/github/guys-switch/ (GuyMannDude/rockys-switch on GitHub)
+- **What it does:** API proxy between agents and model providers. 5 providers: OpenRouter, Anthropic, OpenAI, Google, NVIDIA.
+
+## FrankenClaw
+- **Version:** 0.3.0
+- **Location:** ~/github/frankenclaw/
+- **GitHub:** GuyMannDude/frankenclaw (PUBLIC, MIT)
+- **Tools:** 12 FrankenTools (search, vision, browser, web_scrape, 3x shopify, 5x notebooklm)
+- **Website:** projectsparks.ai/frankenclaw
 
 ## Mnemo Cortex / AgentB Bridge
 - **Deployed version:** agentb_bridge v0.1.0 (standalone FastAPI, NOT the mnemo-cortex v2 repo)
@@ -45,7 +72,7 @@ Every service, tool, and dependency in the Project Sparks ecosystem.
 - **Endpoints:** `/health`, `/context`, `/preflight`, `/writeback`, `/ingest`
 - **Cache tiers:** L1 (pre-built bundles) → L2 (embedding index) → L3 (brute-force scan)
 - **Multi-agent:** Writes isolated to `~/.agentb/memory/{agent_id}/`, reads span all agents
-- **CRITICAL:** No mnemo-cortex process should ever run on IGOR.
+- **CRITICAL:** No mnemo-cortex process should run on IGOR port 50001 (conflicts with THE VAULT). Exception: Portal Mnemo on port 50002 for customer chat memory (separate data dir ~/.agentb-portal/).
 
 ## Sparks Router
 - **Version:** 0.6.0
