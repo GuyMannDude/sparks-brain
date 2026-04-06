@@ -2,7 +2,7 @@
 
 What's happening right now. Current work, priorities, blockers, next actions.
 
-**Last updated:** 2026-04-05
+**Last updated:** 2026-04-06
 
 ---
 
@@ -12,7 +12,7 @@ What's happening right now. Current work, priorities, blockers, next actions.
 - [ ] **LAN access for Sparky gateway** — Gateway works on localhost:18789 on THE VAULT. Need rebind to 0.0.0.0.
 - [ ] **Rocky's Router GitHub repo → private**
 - [ ] **Add mnemo-cortex network policy preset** — for NemoClaw sandbox
-- [ ] **NotebookLM MCP for Opie** — Installed (v0.5.16), auth works for reads, writes fail (Google cookie expiry issue). Config in Claude Desktop. Needs fresh `nlm login` before write operations.
+- [ ] **Cloudflare tunnel DNS** — Tunnel configured with ingress for chat + rocky subdomains, but projectsparks.ai is on Porkbun DNS, not Cloudflare. cfargotunnel.com CNAMEs don't resolve without Cloudflare DNS. Needs nameserver migration to Cloudflare (free plan) or abandon tunnel approach. Widget bypassed this via Tailscale Funnel.
 
 ## Up Next
 - [ ] Chat Portal deployment to projectsparks.ai (after Guy tests locally)
@@ -22,39 +22,32 @@ What's happening right now. Current work, priorities, blockers, next actions.
 - **Heartbeat re-enable:** Needs OpenClaw per-session model override feature.
 - **NotebookLM writes:** Google session cookies expire every ~2-3 hours. Write operations need fresh CSRF token. No permanent fix — Google-side limitation. Workaround: `nlm login` before write sessions.
 
-## Recently Completed (April 5, 2026)
-- [x] **Shopify unblocked** — Store URL was wrong (wug → wugjc3-qh). Updated keys.json. All 3 FrankenTools (products, inventory, collections) now work.
-- [x] **Shopify catalog pull** — 354 products pulled to ~/github/hoffman-bedding/products.json
-- [x] **Succulents archived** — 2 succulent products archived (not deleted) per Guy's approval
-- [x] **Product feed cleanup** — 80 products drafted: 8 zero-price, 72 out-of-stock. Feed now clean: 146 active products, all with prices, inventory, images, descriptions.
-- [x] **robots.txt fixed** — Created custom robots.txt.liquid removing /policies/ block. Google can now crawl all policy pages.
-- [x] **Footer contact info added** — Phone (559) 417-3135, email hoffmanbedding@gmail.com, address 26285 Haley Way Madera CA 93638 added to theme footer.
-- [x] **Merchant Center readiness verified** — All checks PASS. April cleared to resubmit.
-- [x] **NotebookLM catalog upload** — Converted catalog to markdown, uploaded to NotebookLM notebook as source (source ID: 2bef1ade-7871-4fee-ac67-9c2268801428)
-- [x] **Rocky's Switch og:image** — Changed from generic og-image.png to rocky.png on projectsparks.ai/rockys-switch. Deployed to Firebase.
-- [x] **NotebookLM MCP installed** — uv + notebooklm-mcp-cli v0.5.16 on IGOR. Auth as guitarmanndude69@gmail.com. Config added to Claude Desktop.
-- [x] **Theme API access** — April granted read_themes + write_themes scopes to RockyBot app.
+## Recently Completed (April 5-6, 2026)
+- [x] **Rocky Chat Widget LIVE** — Lightweight chat bubble on every page of projectsparks.ai. Rocky answers questions about Project Sparks products.
+  - Frontend: rocky-widget.js (12KB, self-contained overlay, sessionStorage persistence)
+  - Backend: rocky-widget.service on THE VAULT (port 50095)
+  - LLM: Rocky's Switch on IGOR (igor:50060, Grok 4 Fast)
+  - Memory: Mnemo on IGOR:50002 (customer memory, agent_id "rocky-widget-{visitorId}")
+  - Deployed via Firebase Hosting (static files) + Tailscale Funnel (API backend)
+  - Onboarding: name → location → chat. Returning visitors get personalized greeting.
+  - Identity separated from real Rocky (different Mnemo instance, different agent_id)
+  - Double-greeting bug fixed (memory context wording + Mnemo cross-agent filter + concurrency guard)
+  - Greeting updated: explains value exchange for name/location, builds trust
+- [x] **Cloudflare tunnel configured** — config.yml on THE VAULT with ingress for chat + rocky subdomains. DNS issue unresolved (domain on Porkbun). Bypassed with Tailscale Funnel.
+- [x] **Tailscale Funnel enabled** — artforge.tailce7587.ts.net publicly serves port 50095. Set operator=guy for non-root access.
 
-## Previously Completed (April 2-4, 2026)
-- [x] Opie MCP fix — opie-brain MCP server v2.0.0
-- [x] Chat Portal built — Codex scaffold + CC integration
-- [x] Portal Mnemo instance on IGOR:50002
-- [x] Stripe integration — acct_1SzUT7Dk4CDADjbW
-- [x] Rocky's Switch shipped PUBLIC
-- [x] FrankenClaw shipped PUBLIC (12 tools, v0.3.0)
-- [x] OpenClaw updated to 2026.4.2
-- [x] CSR Rocky portal — No Manual Editing doctrine
-- [x] mnemo-cortex v2.2.0 (MCP bridge merge, health command)
-- [x] CronAlarm pushed public
+## Previously Completed (April 5, 2026)
+- [x] Shopify unblocked, catalog pull, succulents archived, product feed cleanup
+- [x] robots.txt fixed, footer contact added, Merchant Center readiness verified
+- [x] NotebookLM catalog upload, Rocky's Switch og:image, NotebookLM MCP installed
+- [x] Theme API access granted by April
 
 ## Notes
 - Hoffman Bedding store: hoffmanbedding.com (handle: wugjc3-qh.myshopify.com)
 - Shopify API scopes: read/write products, read/write inventory, read_product_listings, read/write themes
-- Shopify creds in ~/.rockys-switch/keys.json under "shopify_hoffman"
-- Google Tag on store: GT-MQ76NGRV, Merchant Center: MC-V8WZQYSXZR
-- NotebookLM notebook ID: e18f3b53-bb26-49a9-ab54-14d8af2bc7d9
-- April = Guy's collaborator on Hoffman Bedding Shopify store
-- Product catalog files: ~/github/hoffman-bedding/products.json (original), products-clean.json (post-archive), products-clean.txt (markdown for NotebookLM)
+- Rocky Widget Funnel URL: https://artforge.tailce7587.ts.net
+- Widget script tags injected in all 12 HTML pages of projectsparks.ai
+- Firebase project: project-sparks-website, site repo: ~/github/projectsparks-site/
 
 ---
 
