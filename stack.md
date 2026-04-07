@@ -47,6 +47,19 @@ Every service, tool, and dependency in the Project Sparks ecosystem.
 - **Stripe:** Account acct_1SzUT7Dk4CDADjbW (ProjectSparks). Product: Rocky Chat — Sonnet Upgrade (prod_UGTmzzSvtWaMer). Price: $2.99 (price_1THwp0Dk4CDADjbWAPtR4GxV). Needs publishable key from dashboard.
 - **Status:** Running locally, Guy testing tomorrow. Test mode (instant upgrade) until Stripe publishable key added.
 
+
+## Peter Widget (Customer-Facing Chat)
+- **Version:** 1.0.0
+- **What it is:** Lightweight chat widget on projectsparks.ai. Peter the lobster answers questions about Project Sparks products.
+- **Location:** IGOR
+- **Port:** 50095 (systemd: peter-widget.service)
+- **Public URL:** https://igor.tailce7587.ts.net (Tailscale Funnel)
+- **LLM:** Via Rocky's Switch (IGOR:50060, Grok 4 Fast)
+- **Memory:** Portal Mnemo (IGOR:50002, agent_id: peter-widget-{visitorId})
+- **Knowledge:** ~/peter-customer/knowledge/products.md (loaded at startup)
+- **Frontend:** rocky-widget.js served from Firebase Hosting (projectsparks.ai)
+- **Identity:** Completely separate from Rocky M. — different name, Mnemo instance, agent_id
+- **Repo:** ~/github/rocky-widget/
 ## Rocky's Switch
 - **Version:** 1.1.0
 - **Port:** 50060

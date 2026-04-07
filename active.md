@@ -7,47 +7,63 @@ What's happening right now. Current work, priorities, blockers, next actions.
 ---
 
 ## In Progress
-- [ ] **Chat Portal — Guy testing** — Portal live at localhost:50085. Two-tier model (free Grok 4 Fast / paid Sonnet $2.99). Mnemo on 50002 for customer memory. 8 content docs. Stripe product + price created. Needs publishable key to go live with payments.
+- [ ] **Hoffman Bedding — Google Merchant Center denial** — Second denial for misrepresentation. Full audit complete. 80 OOS products re-activated, email mismatch, shipping contradictions, non-bedding items. April needs to fix in Shopify admin before next appeal.
 - [ ] **Stripe publishable key** — Guy needs to grab pk_live_ from dashboard.stripe.com/apikeys
-- [ ] **LAN access for Sparky gateway** — Gateway works on localhost:18789 on THE VAULT. Need rebind to 0.0.0.0.
-- [ ] **Rocky's Router GitHub repo → private**
-- [ ] **Add mnemo-cortex network policy preset** — for NemoClaw sandbox
-- [ ] **Cloudflare tunnel DNS** — Tunnel configured with ingress for chat + rocky subdomains, but projectsparks.ai is on Porkbun DNS, not Cloudflare. cfargotunnel.com CNAMEs don't resolve without Cloudflare DNS. Needs nameserver migration to Cloudflare (free plan) or abandon tunnel approach. Widget bypassed this via Tailscale Funnel.
+- [ ] **Sparky Mnemo blocked** — NemoClaw openshell proxy returns 403 on non-TLS internal endpoints. Issue filed: NVIDIA/NemoClaw#1551. Sparky updated to OpenClaw 2026.4.5 but can't reach Mnemo.
+- [ ] **Cloudflare tunnel DNS** — Tunnel configured but projectsparks.ai is on Porkbun DNS. cfargotunnel.com CNAMEs don't resolve without Cloudflare DNS. Bypassed with Tailscale Funnel for widget.
 
 ## Up Next
-- [ ] Chat Portal deployment to projectsparks.ai (after Guy tests locally)
-- [ ] Rocky-to-CC bridge — `claude -p` works from shell. Not wired yet.
+- [ ] Chat Portal deployment (after Stripe key)
+- [ ] Rocky-to-CC bridge
+- [ ] Mem0 meeting with Taranjeet (brief ready at ~/rocky-customer/mem0-bridge-brief.md)
+- [ ] Hoffman Bedding re-appeal (after April fixes the 7 items)
 
 ## Blocked
-- **Heartbeat re-enable:** Needs OpenClaw per-session model override feature.
-- **NotebookLM writes:** Google session cookies expire every ~2-3 hours. Write operations need fresh CSRF token. No permanent fix — Google-side limitation. Workaround: `nlm login` before write sessions.
+- **Heartbeat re-enable:** Needs OpenClaw per-session model override feature
+- **Sparky Mnemo:** Needs NVIDIA/NemoClaw#1551 fix or workaround
 
-## Recently Completed (April 5-6, 2026)
-- [x] **Rocky Chat Widget LIVE** — Lightweight chat bubble on every page of projectsparks.ai. Rocky answers questions about Project Sparks products.
-  - Frontend: rocky-widget.js (12KB, self-contained overlay, sessionStorage persistence)
-  - Backend: rocky-widget.service on THE VAULT (port 50095)
-  - LLM: Rocky's Switch on IGOR (igor:50060, Grok 4 Fast)
-  - Memory: Mnemo on IGOR:50002 (customer memory, agent_id "rocky-widget-{visitorId}")
-  - Deployed via Firebase Hosting (static files) + Tailscale Funnel (API backend)
-  - Onboarding: name → location → chat. Returning visitors get personalized greeting.
-  - Identity separated from real Rocky (different Mnemo instance, different agent_id)
-  - Double-greeting bug fixed (memory context wording + Mnemo cross-agent filter + concurrency guard)
-  - Greeting updated: explains value exchange for name/location, builds trust
-- [x] **Cloudflare tunnel configured** — config.yml on THE VAULT with ingress for chat + rocky subdomains. DNS issue unresolved (domain on Porkbun). Bypassed with Tailscale Funnel.
-- [x] **Tailscale Funnel enabled** — artforge.tailce7587.ts.net publicly serves port 50095. Set operator=guy for non-root access.
+## Completed This Session (April 6, 2026)
 
-## Previously Completed (April 5, 2026)
-- [x] Shopify unblocked, catalog pull, succulents archived, product feed cleanup
-- [x] robots.txt fixed, footer contact added, Merchant Center readiness verified
-- [x] NotebookLM catalog upload, Rocky's Switch og:image, NotebookLM MCP installed
-- [x] Theme API access granted by April
+### Rocky Widget → Peter Widget
+- [x] Built Rocky Chat Widget from scratch (server.js + rocky-widget.js + SVG icon)
+- [x] Fixed double-greeting bug (memory context wording + cross-agent filter + concurrency guard)
+- [x] Updated greeting copy for trust-building
+- [x] Moved all customer-facing infra to IGOR (backend, Switch, Mnemo)
+- [x] Fixed Mnemo tilde bug (portal config writing to literal `~/` path inside repo)
+- [x] Externalized product knowledge to ~/peter-customer/knowledge/products.md
+- [x] Added "Clear my data" wipe button (deletes Mnemo records + resets widget)
+- [x] Added name parsing ("I'm Bob from Fresno" → saves "Bob")
+- [x] Renamed Rocky Widget → Peter (system prompt, greeting, service, folders, agent_id)
+- [x] Deployed via Firebase Hosting (static files) + Tailscale Funnel (API backend)
+- [x] Peter live on projectsparks.ai — all 12 pages
+
+### Mnemo Cortex × Mem0 Bridge
+- [x] Built Mem0 upstream bridge (agentb/mem0_bridge.py)
+- [x] Added Mem0Config to config.py, hooked into server.py /context and /writeback
+- [x] 8/8 integration tests passing (test-mem0-bridge.sh)
+- [x] Meeting brief written (~/rocky-customer/mem0-bridge-brief.md)
+- [x] Mem0 API key saved to ~/.rockys-switch/keys.json
+
+### Infrastructure Cleanup
+- [x] Alice purged from OpenClaw config (mem0 plugin user, Telegram removed)
+- [x] OpenClaw updated to 2026.4.5 on THE VAULT (CLI + gateway)
+- [x] Sparky updated to OpenClaw 2026.4.5 inside NemoClaw sandbox
+- [x] Sparky Mnemo network policy added (but blocked by proxy — issue filed)
+- [x] Peter identity fully separated from Rocky M.
+
+### Hoffman Bedding Audit
+- [x] Full site crawl: 80 OOS products back, email mismatch, shipping contradictions, non-bedding items, template refund policy
+- [x] 7 specific fixes identified for April
 
 ## Notes
-- Hoffman Bedding store: hoffmanbedding.com (handle: wugjc3-qh.myshopify.com)
-- Shopify API scopes: read/write products, read/write inventory, read_product_listings, read/write themes
-- Rocky Widget Funnel URL: https://artforge.tailce7587.ts.net
-- Widget script tags injected in all 12 HTML pages of projectsparks.ai
-- Firebase project: project-sparks-website, site repo: ~/github/projectsparks-site/
+- Peter Widget backend: IGOR:50095 (systemd: peter-widget.service)
+- Peter Widget API: https://igor.tailce7587.ts.net (Tailscale Funnel)
+- Peter Mnemo: IGOR:50002 (agent_id: peter-widget-{visitorId})
+- Peter knowledge: ~/peter-customer/knowledge/products.md
+- Mem0 bridge: ~/github/mnemo-cortex/agentb/mem0_bridge.py
+- Mem0 test suite: ~/github/mnemo-cortex/test-mem0-bridge.sh
+- NemoClaw issue: NVIDIA/NemoClaw#1551
+- Hoffman audit: 7 fixes needed, April owns Shopify admin
 
 ---
 
