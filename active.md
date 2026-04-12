@@ -2,7 +2,7 @@
 
 What's happening right now. Current work, priorities, blockers, next actions.
 
-**Last updated:** 2026-04-11
+**Last updated:** 2026-04-12
 
 ---
 
@@ -16,6 +16,7 @@ What's happening right now. Current work, priorities, blockers, next actions.
 - [x] **Mnemo Cortex v2.3.2** — Doc audit: dead Google model name (text-embedding-004→gemini-embedding-001), troubleshooting section, expected test output.
 
 ## Up Next
+- [ ] **OpenClaw update 2026.4.8 → 2026.4.11** — Active Memory plugin, agent failover fix, Ollama cache, security hardening. Run `openclaw doctor --fix` after. Daytime job — needs Rocky restart.
 - [ ] Chat Portal deployment (after Stripe key)
 - [ ] Sparks Bus v0.2 — bus_subscribe (standing interest), message TTL
 - [ ] Mem0 bridge production deploy (code exists, needs pip install on THE VAULT)

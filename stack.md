@@ -32,6 +32,7 @@ Every service, tool, and dependency in the Project Sparks ecosystem.
   - IGOR: **v2026.4.8** (updated April 8, doctor --fix run)
   - THE VAULT (host): v2026.3.22
   - Sparky (NemoClaw pod): v2026.4.5
+  - **Latest available: v2026.4.11** (released April 11)
 - **Rocky config:** `~/.openclaw/workspace/` on IGOR
 - **Rocky model:** DeepSeek V3.2 via OpenRouter DIRECT (no Switch proxy). 5 aliases: DeepSeek, Grok, Free, Gemini, Grok41. Switch via `/model` command in chat.
 - **New in 2026.4.5:**
@@ -39,6 +40,16 @@ Every service, tool, and dependency in the Project Sparks ecosystem.
   - Heartbeat cron running clean on Nemotron free tier (1h interval, 348+ runs)
   - Video/music provider plugins exist but need API keys or ComfyUI server to activate
   - ComfyUI plugin loaded but no running server (ComfyUI is on IGOR-2, not network-reachable)
+- **Notable in 2026.4.9–4.11 (not yet installed):**
+  - 4.10: Active Memory plugin (automatic context recall before replies — big for Rocky)
+  - 4.10: Plugin manifest auth/setup descriptors (relevant for FrankenClaw)
+  - 4.10: `openclaw exec-policy` CLI command
+  - 4.10: Major browser/security and tools/security hardening
+  - 4.11: Ollama model cache (stops refetching on picker refresh — good for THE VAULT)
+  - 4.11: Agent failover scoped to current attempt (reliability fix)
+  - 4.11: Agent timeout honors explicit config
+  - 4.9: Dreaming grounded backfill (replay old notes into Dreams)
+  - 4.9: Ollama thinking output when /think is on
 - **Notes:** Rocky's SOUL.md and MEMORY.md in `~/.openclaw/workspace/` are sacred — never modify without asking.
 
 ## Chat Portal (Rocky's Chat Portal)
