@@ -22,6 +22,20 @@ echo "=== MNEMO CORTEX — SESSION MEMORY ==="
 echo "Status: ${status} | Agent: ${AGENT_ID}"
 echo ""
 
+# 1b. Pull latest dream brief (cross-agent overnight synthesis)
+DREAM_DIR="/home/guy/.agentb/dreams"
+if [ -d "$DREAM_DIR" ]; then
+    latest_dream=$(ls -t "$DREAM_DIR"/*.md 2>/dev/null | head -1)
+    if [ -n "$latest_dream" ]; then
+        dream_age=$(( ($(date +%s) - $(stat -c %Y "$latest_dream")) / 3600 ))
+        if [ "$dream_age" -lt 48 ]; then
+            echo "## Latest Dream Brief (${dream_age}h ago)"
+            cat "$latest_dream"
+            echo ""
+        fi
+    fi
+fi
+
 # 2. Pull recent session context (last 20 exchanges)
 recent=$(curl -sf "${MNEMO_URL}/sessions/recent?agent_id=${AGENT_ID}&n=20" 2>/dev/null) || true
 if [ -n "$recent" ]; then
