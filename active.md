@@ -2,26 +2,25 @@
 
 What's happening right now. Current work, priorities, blockers, next actions.
 
-**Last updated:** 2026-04-12
+**Last updated:** 2026-04-14
 
 ---
 
 ## In Progress
-- [ ] **Hoffman Bedding — Google Merchant Center** — GMC suspended (not dead). All product/site fixes COMPLETE. Waiting for cool-down period to end before re-appeal. April tracking the timeline.
+- [ ] **Rocky's Gallery — Shopify store** — Scaffold built at /home/guy/shopify/rockys-gallery/. Shopify AI Toolkit installed (17 skills). Andre's starter photos on IGOR. Next: Guy signs up for Shopify, picks 4 starter pieces, CC builds the store.
+- [ ] **Hoffman Bedding — Google Merchant Center** — GMC suspended (not dead). All product/site fixes COMPLETE. SEO + alt text applied (129/129 products, 723/723 images). 2 missing product types fixed. Waiting for cool-down period to end before re-appeal.
 - [ ] **Stripe publishable key** — Guy needs to grab pk_live_ from dashboard.stripe.com/apikeys
-- [x] **Sparky Mnemo CONNECTED** — Was blocked (403 on proxy path). Docker bridge path (host.docker.internal:50001) works, bypasses proxy. Agent_id `sparky`, full round-trip verified. NemoClaw #1551 no longer a blocker.
-- [x] **Sparks Bus v0.1** — MCP message broker for inter-agent communication. SQLite-backed (separate from Mnemo). Auto-wake watcher daemon delivers messages to all agents. Full round-trip proven.
-- [x] **Discord wiring** — All 5 agents on Discord. Channel discipline set. Unified bot (CC+Opie) on systemd. Rocky locked to rocky-log/dispatch/alerts/discoveries only.
-- [x] **Peter Widget 3 bugs** — Stale knowledge (retired product rules), mnemo retry with backoff, hiccup loop fixed.
-- [x] **Mnemo Cortex v2.3.2** — Doc audit: dead Google model name (text-embedding-004→gemini-embedding-001), troubleshooting section, expected test output.
+- [x] **Sparks Counters** — GoatCounter on THE VAULT (port 50180), sparks_stats FrankenTool #13, peter-stats.py, all 11 site pages instrumented. Counting from April 14.
+- [x] **Hoffman SEO batch** — 129/129 alt text + SEO title + SEO description applied. 723/723 images have alt. April reviewing live.
 
 ## Up Next
-- [x] **OpenClaw update → 2026.4.11** — Rocky updated from 4.8, Sparky from 3.11 (was listed as 4.5 — wrong). Both on 4.11 now. Doctor --fix clean on both.
+- [ ] Rocky's Gallery Shopify signup + first 4 product listings
+- [ ] Andre's full catalog download from Google Drive (auth issue — need public share or manual download)
 - [ ] Chat Portal deployment (after Stripe key)
 - [ ] Sparks Bus v0.2 — bus_subscribe (standing interest), message TTL
 - [ ] Mem0 bridge production deploy (code exists, needs pip install on THE VAULT)
 - [ ] Hoffman Bedding re-appeal (waiting on GMC cool-down end date from April)
-- [ ] Bulk image alt text for Hoffman (723 images, 0% have alt — big SEO win)
+- [ ] Hoffman 28 collection SEO descriptions (separate batch)
 
 ## Blocked
 - **Heartbeat re-enable:** Resolved — heartbeat running on Nemotron free tier (1h interval)

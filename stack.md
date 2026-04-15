@@ -89,8 +89,10 @@ Every service, tool, and dependency in the Project Sparks ecosystem.
 - **Version:** 0.3.0
 - **Location:** ~/github/frankenclaw/
 - **GitHub:** GuyMannDude/frankenclaw (PUBLIC, MIT)
-- **Tools:** 12 FrankenTools (search, vision, browser, web_scrape, 3x shopify, 5x notebooklm)
+- **Tools:** 13 FrankenTools (search, vision, browser, web_scrape, 3x shopify, 5x notebooklm, sparks_stats)
 - **Website:** projectsparks.ai/frankenclaw
+- **sparks_stats:** Combined web + Peter Widget counter. Params: scope (web|peter|all), window (24h|7d|30d|all). Web data from GoatCounter on THE VAULT (SSH + SQLite). Peter data from local Mnemo store.
+- **Doctrine:** For site or Peter numbers, call sparks_stats. Don't guess, don't fetch raw logs, don't invent metrics.
 
 ## Mnemo Cortex / AgentB Bridge
 - **Deployed version:** agentb_bridge v0.1.0 (standalone FastAPI, NOT the mnemo-cortex v2 repo)
