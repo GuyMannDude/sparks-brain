@@ -8,7 +8,7 @@ What's happening right now. Current work, priorities, blockers, next actions.
 
 ## In Progress
 - [ ] **Rocky's Gallery — Shopify store** — Scaffold built at /home/guy/shopify/rockys-gallery/. Shopify AI Toolkit installed (17 skills). Andre's starter photos on IGOR. Next: Guy signs up for Shopify, picks 4 starter pieces, CC builds the store.
-- [ ] **Hoffman Bedding — Google Merchant Center** — GMC suspended (not dead). All product/site fixes COMPLETE. SEO + alt text applied (129/129 products, 723/723 images). 2 missing product types fixed. Waiting for cool-down period to end before re-appeal.
+- [ ] **Hoffman Bedding — Google Merchant Center** — GMC suspended (not dead). All product/site fixes COMPLETE. SEO + alt text applied (129/129 products, 723/723 images). 2 missing product types fixed. Microsoft Clarity installed (analytics only, April 14). Waiting for cool-down period to end before re-appeal.
 - [ ] **Stripe publishable key** — Guy needs to grab pk_live_ from dashboard.stripe.com/apikeys
 - [x] **Sparks Counters** — GoatCounter on THE VAULT (port 50180), sparks_stats FrankenTool #13, peter-stats.py, all 11 site pages instrumented. Counting from April 14.
 - [x] **Hoffman SEO batch** — 129/129 alt text + SEO title + SEO description applied. 723/723 images have alt. April reviewing live.
