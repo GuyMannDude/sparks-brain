@@ -20,6 +20,14 @@ Guy's words tonight: "Tomorrow we finish testing and bridging desktops."
   mention Passport Lane. If Opie boots without context, point him at
   `brain/projects/products/mnemo-passport.md` (has both Phase 1 + Phase 1.5
   SHIPPED banners I wrote today).
+- **Opie filesystem MCP fixed tonight:** Desktop config at
+  `~/.config/Claude/claude_desktop_config.json` now includes `filesystem` server
+  scoped to 5 dirs (brain-guy, brain, mnemo-cortex, frankenclaw,
+  peter-customer). Takes effect on Desktop restart. Rocky's workspace
+  deliberately excluded. See `incidents.md` for details.
+- **"Running nurse" idea from Guy:** silent MCP loss / capability drift went
+  undetected ~4 days. Build a daily health check that pings each Opie MCP
+  tool and reports missing capabilities. Cheap to prototype, high value.
 
 ---
 
