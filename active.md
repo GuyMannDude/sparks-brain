@@ -2,32 +2,54 @@
 
 What's happening right now. Current work, priorities, blockers, next actions.
 
-**Last updated:** 2026-04-18
+**Last updated:** 2026-04-19
 
 ---
 
-## Kickstart — Next Session (2026-04-19)
-Guy's words tonight: "Tomorrow we finish testing and bridging desktops."
-- **Finish testing:** Passport Lane Phase 1.5 is live on THE VAULT; 4 dispositions
-  (hard_block, review_required, local_only, allow) verified end-to-end via curl.
-  Opie has the new /observe response schema post-restart. Next move is likely
-  Opie driving observe_behavior through its MCP tool and confirming the new
-  disposition/taint/flagged_spans fields surface correctly in the Desktop UI.
-- **Bridging desktops:** ambiguous phrasing — could mean Desktop-to-Desktop MCP
-  bridge work, or bridging Opie (Desktop) and CC (IGOR) to share state more
-  cleanly. Ask Opie/Guy first move, don't assume.
-- **Fresh Opie context:** opie.md was last updated April 14-16 and does NOT yet
-  mention Passport Lane. If Opie boots without context, point him at
-  `brain/projects/products/mnemo-passport.md` (has both Phase 1 + Phase 1.5
-  SHIPPED banners I wrote today).
-- **Opie filesystem MCP fixed tonight:** Desktop config at
-  `~/.config/Claude/claude_desktop_config.json` now includes `filesystem` server
-  scoped to 5 dirs (brain-guy, brain, mnemo-cortex, frankenclaw,
-  peter-customer). Takes effect on Desktop restart. Rocky's workspace
-  deliberately excluded. See `incidents.md` for details.
-- **"Running nurse" idea from Guy:** silent MCP loss / capability drift went
-  undetected ~4 days. Build a daily health check that pings each Opie MCP
-  tool and reports missing capabilities. Cheap to prototype, high value.
+## Kickstart — Next Session (2026-04-20)
+
+### Rocky's Gallery — CC has creative ownership
+Guy's words April 19: *"It is your site to design however. Display however. Add pages.
+Keep building as we go. Maybe my 3D creations later. Have fun CC. Your site."*
+
+**Current state:**
+- Domain rockysgallery.com LIVE (Shopify-managed, SSL, primary flipped, support@ email forwarding)
+- Password page rendering new WMS hero (`hero-wms-v1.png`, OpenAI-generated)
+- Andre's attribution removed until his hi-res photos surface
+- ComfyUI pipeline on IGOR-2 PROVEN: Flux.1-schnell-fp8 + 4x-UltraSharp, ~60s per print-ready 6144×4096 output
+- **13 pieces generated across 3 collections** — see `~/shopify/rockys-gallery/GALLERY-STATUS.md`
+  - Where Machines Sleep (5): Aisle, Patch, Tower, Cabinet, Landing
+  - Cathedral Forests (4): Vertical, Understory, Canopy, Mist
+  - Black Line (4): Tree, Wave, Ridge, Branch
+- All files at `~/shopify/rockys-gallery/inventory/cc-generated/`
+
+**First thing Guy sees tomorrow:** 13 images to scroll. If aesthetic holds, CC continues
+with Storm Bloom (maximalist) + begins actual Shopify site design.
+
+**Fulfillment decisions locked:**
+- NO Prodigi (Guy had bad assembly experience)
+- YES Printful for poster sizes + Digital downloads primary
+- Pricing target: $6 digital / ~$28-$75 Printful retail
+
+### Passport Lane corpus — awaiting Guy + Opie decision
+- AL's 200-example corpus landed at `~/github/mnemo-cortex/tests/passport/corpus/`
+- Schema adapter (`corpus_migrate.py`) bridges v0 names → Phase 1 names
+- Baseline: 48% accuracy, macro-F1 0.428
+- `hard_block` F1=0.745 (detectors work), `allow` F1=0.269 (bucket floor too aggressive)
+- Two tunings proposed — Guy + Opie's call tomorrow before Karpathy loop kicks off
+- sparks-router-v2 PR #3 CLOSED with thank-you to AL
+
+### Windows ComfyUI
+- Patched `C:\Projects\ComfyUI\app\logger.py` to swallow `[Errno 22]` on flush
+- Backup at `logger.py.bak-pre-errno22-patch`
+- Launch command used: `python main.py --listen 0.0.0.0` from `C:\Projects\ComfyUI`
+- Currently running headless via SSH Start-Process
+
+### Still parked
+- **Passport Phase 1.5 vs Opie** — whether the two tunings (bucket_defaults, insufficient_evidence→review) get applied
+- **"Running nurse"** health check for Opie MCP tools
+- **Opie context gap** — opie.md doesn't yet mention Passport Lane or Gallery generation pipeline
+- **Guy's 3D creations** as future gallery collection
 
 ---
 
