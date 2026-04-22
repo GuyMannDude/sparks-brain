@@ -2,7 +2,29 @@
 
 What's happening right now. Current work, priorities, blockers, next actions.
 
-**Last updated:** 2026-04-22
+**Last updated:** 2026-04-22 (late PM)
+
+---
+
+## Kickstart — Next Session
+
+**Two big targets Guy named at session end:**
+
+1. **Passport — pick back up.** Phase 1 + 1.5 shipped April 18 (5 MCP tools live in passport/, corpus loaded April 19, baseline 48% / macro-F1 0.428). Tuning conversation with Opie was pending at session end. Two policy tweaks proposed but not decided: bucket_defaults (untrusted_web→review_required, semi_trusted_remote→allow) + insufficient_evidence→review_required. Source: `~/github/mnemo-cortex/passport/`, deployed via symlink to `/home/guy/agentb-bridge/passport` on artforge. Strategic direction from cc-session.md Session 9 still locked: normal users first, enterprise later. Read `~/github/sparks-brain-guy/brain/projects/products/mnemo-passport.md` for the strategic doc.
+
+2. **Hook Mnemo to ChatGPT and Gemini.** Mnemo is currently wired to Claude (Code + Desktop) and OpenClaw. We want it speaking to ChatGPT and Gemini too. The Mnemo HTTP API at `artforge:50001` already exposes `/writeback`, `/context`, `/preflight`, `/passport/*` — wiring is plumbing, not new server work. ChatGPT path is likely a custom GPT with an Action calling our HTTP API; Gemini path is a Gemini Extension or similar. Starting question: do we want a Mnemo MCP-equivalent for each platform, or a thin Action/Extension that posts to the existing endpoints? Opie likely has thoughts.
+
+**State of the world at session end (2026-04-22 late PM):**
+- Sparks Bus: shipped end-to-end — notification loop hardened, packaged into mnemo-cortex/sparks_bus AND standalone repo at github.com/GuyMannDude/sparks-bus, dedicated landing page live at projectsparks.ai/sparks-bus, GitHub social preview asset committed (Guy uploaded via web UI), homepage constellation node added.
+- WikAI Compiler: nightly cron live on artforge at 3:30 AM, smoke tested with entities/guy.md.
+- Mnemo Cortex v2.4.0: README + landing page updated (WikAI, Sparks Bus, Passport, three-layer architecture, Karpathy + Nate B Jones + Google A2A + Mem0 credits), CHANGELOG entry, version bumped.
+- Brand legibility: Mem0 vs Memo CSS fix shipped (`.mem0` class wraps body-text brand mentions in JetBrains Mono so the digit 0 doesn't look like letter o in Cormorant Garamond).
+- All commits pushed; all firebase deploys live.
+
+**First moves on resume:**
+- Read this active.md + cc-session.md
+- Read the Passport strategic doc to refresh on monetization tiers and the corpus tuning state
+- Ask Guy: which platform first — ChatGPT or Gemini? Custom GPT Action vs Gemini Extension vs MCP-bridge per platform — what shape does he want?
 
 ---
 
