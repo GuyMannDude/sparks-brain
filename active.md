@@ -6,6 +6,41 @@ What's happening right now. Current work, priorities, blockers, next actions.
 
 ---
 
+## Mnemo Wiki Compiler — SHIPPED 2026-04-22 (PM)
+
+Karpathy/Nate-Jones hybrid: Mnemo is source of truth, wiki is a compiled view
+auto-generated from Mnemo each night. If they disagree, Mnemo wins. Manual
+wiki edits get overwritten and warned. Doctrine recorded in the script header.
+
+- **Compiler:** `~/github/mnemo-cortex/mnemo-wiki-compile.py` (committed `9c910d3`,
+  pushed). 860 lines. Self-contained.
+- **Pipeline:** harvest (AgentB writebacks + Mnemo SQLite) → cluster (Python,
+  deterministic — no LLM routing) → compile (one gemini-2.5-flash call per
+  topic) → cross-ref validate (no hallucinated wikilinks) → write with
+  `.md.prev` rollback → regenerate `INDEX.md` → audit summary.
+- **Topology:** Mnemo data lives on artforge; wiki master lives on IGOR
+  (`/home/guy/wiki`, 3,145 files). Cron runs on artforge; nightly wrapper at
+  `/home/guy/mnemo-wiki-nightly.sh` does: rsync IGOR→artforge → compile →
+  rsync artforge→IGOR. Compiler-owned sections only: `projects/`, `entities/`,
+  `concepts/`. The `sources/` section is owned by the file-inventory job and
+  is NOT touched.
+- **Cron:** `30 3 * * *` on artforge, 15 min after Dreaming finishes. SSH key
+  artforge→IGOR set up (added artforge's `id_ed25519.pub` to IGOR's
+  `authorized_keys`).
+- **Smoke test:** `entities/guy.md` compiled live from 91 memories — dense
+  Summary, dated Key Facts, chronological Timeline, 10 validated cross-refs.
+  ~1.5s LLM call, ~$0.005. End-to-end rsync to IGOR confirmed.
+- **Failure handling:** per-page isolation. One bad LLM call → ⚠️ to `#alerts`
+  (reusing Sparks Bus token + channels file) → run continues. `delivery_failed`
+  doctrine consistent with the bus.
+- **Audit folded in:** every nightly logs counts of pages > 30d stale, < 3
+  source memories, manually edited. No separate `--audit` flag.
+- **Topic discovery deferred:** `concepts/` only updates pages that already
+  exist (conservative, per Guy). `projects/` pages only birth from
+  `projects_referenced` field. No noun-phrase auto-discovery yet.
+- **Flags:** `--dry-run --verbose` (cluster + plan, no LLM); `--days N`;
+  `--topics section/slug,...`; `--full` (all-time, expensive — sparingly).
+
 ## Sparks Bus — Repo Package SHIPPED 2026-04-22 (PM)
 
 Standalone-capable package now lives in `~/github/mnemo-cortex/sparks_bus/`
