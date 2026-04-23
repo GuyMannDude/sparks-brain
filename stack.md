@@ -4,6 +4,15 @@ Every service, tool, and dependency in the Project Sparks ecosystem.
 
 ---
 
+## Google Drive (Rocky, read-only)
+- **How:** MCP stdio subprocess via `@modelcontextprotocol/server-gdrive` (archived/deprecated npm package, but stdio protocol is stable and it still works).
+- **Wired in:** `~/.openclaw/openclaw.json` → `mcp.servers.gdrive` → `npx -y @modelcontextprotocol/server-gdrive` with env vars `GDRIVE_OAUTH_PATH` + `GDRIVE_CREDENTIALS_PATH`.
+- **OAuth client** (the app): `~/.openclaw/google/credentials.json` — "installed" type OAuth 2.0 client, was already on disk from Feb 20.
+- **User token** (the grant): `~/.openclaw/google/.gdrive-server-credentials.json`, mode 600, contains access_token + refresh_token. Completed interactive OAuth flow 2026-04-22 18:54. Account: `guitarmanndude69@gmail.com`. Scope: `https://www.googleapis.com/auth/drive.readonly` (whole Drive, read-only — no way to scope narrower with the archived server).
+- **Tools exposed to Rocky:** `gdrive_search` (search files/folders), `gdrive_read` (read file contents).
+- **No write access.** Matches Guy's "read-only first" rule.
+- **Known deprecation:** npm package is marked "no longer supported" with SDK pinned at mcp@1.0.1 (current is 1.27+). Works today via stdio protocol stability. **Swap target:** Google announced official remote MCP servers for Google services on 2026-04-22; once docs mature (check `docs.cloud.google.com/mcp/`), migrate from the archived stdio server to the official remote MCP.
+
 ## NemoClaw
 - **Version:** 0.1.0 locally (installed 2026-03-23). Upstream has since retagged from 0.1.0 pre-release back to 0.0.x series; **v0.0.22 is the current stable tag** (Apr 21 2026, NVIDIA). ~30 days of commits ahead of Guy's install. Alpha software per NVIDIA — "APIs and behavior may change without notice."
 - **Upgrade path (per NVIDIA):** `cd ~/.nemoclaw/source && git pull && ./install.sh` — bootstrap-style, rebuilds sandbox from pinned image digest. `nemoclaw <name> rebuild` reapplies every preset so policies survive upgrades (IF the preset exists upstream).

@@ -2,7 +2,27 @@
 
 What's happening right now. Current work, priorities, blockers, next actions.
 
-**Last updated:** 2026-04-22 (evening)
+**Last updated:** 2026-04-22 (late evening)
+
+## Rocky on OpenClaw 2026.4.20 + Google Drive read-only — SHIPPED 2026-04-22
+
+- **OpenClaw 2026.4.20** live on IGOR (`openclaw --version` + running gateway pid 166556). Four cascading incidents hit + logged in `incidents.md`: jiti cache crash-loop (self-healed), `/tmp/jiti` root-perms, `dist/extensions/*/node_modules` root-perms, stale `sparks-bus-mcp` MCP path in `openclaw.json`. Recipe for future upgrades captured in the incident entry.
+- **DeepSeek confirmed active** — Guy switched via OpenClaw's `/model` picker (Switch is bypassed for Rocky). Rocky saved a real Mnemo memory (`faefd3c133e43121`) during verification, confirming end-to-end.
+- **Google Drive (read-only)** wired as MCP subprocess for Rocky using `@modelcontextprotocol/server-gdrive` (archived but stable). Scopes granted, token at `~/.openclaw/google/.gdrive-server-credentials.json` mode 600. Account `guitarmanndude69@gmail.com`. Tools: `gdrive_search`, `gdrive_read`. No write, no Docs/Sheets edits — matches "read-only first" rule. **Future swap:** Google's official remote MCP launched same day; migrate when docs firm up.
+- **Claude Desktop MCP config drift** (Opie's `opie_startup` missing + Sparks-Bus disconnected) both fixed, Desktop relaunched, all MCPs healthy.
+- **Developer's Passport v2.4.1** shipped (rename + policy tweaks + 53.0% / 0.458 eval + PR #2315 for NemoClaw mnemo-cortex preset).
+- **Pinned v0.0.22** of NemoClaw is the upstream tag we'd upgrade Sparky to once PR #2315 merges. Sparky upgrade still parked.
+- **OpenClaw 2026.4.21** dropped during this session — staying on .20, letting it settle. Recipe for .21 bump ready when wanted.
+- **Guy Hutchins** (not Hoffman) — fixed in mnemo-cortex pyproject.toml + CONTRIBUTING.md. Memory saved.
+
+**Next session first moves:**
+- Test Rocky's gdrive tools in UI (ask Rocky to search a known Drive file).
+- Check PR #2315 review status at https://github.com/NVIDIA/NemoClaw/pull/2315.
+- If Rocky runs clean for 24+h on .20, bump to .21 using the documented recipe (sudo npm install + two chowns + daemon-reload + restart).
+- Sparky NemoClaw upgrade: gated on PR #2315 merging upstream.
+
+---
+
 
 ---
 
