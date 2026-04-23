@@ -38,6 +38,16 @@ Every service, tool, and dependency in the Project Sparks ecosystem.
 - **WARNING:** The npm registry `nemoclaw` package (222 bytes) is a name squatter. Never `npm install -g nemoclaw` — always use the official installer.
 - **Notes:** License: Apache-2.0. Uninstall: `curl -fsSL https://raw.githubusercontent.com/NVIDIA/NemoClaw/refs/heads/main/uninstall.sh | bash`
 
+## Rocky's Switch + Sparky's Router — RETIRED 2026-04-23
+
+Both Switch-pattern routers deprecated and disabled. Rocky had already bypassed his Switch (uses OpenClaw `/model` picker directly against OpenRouter). Sparky and Peter migrations:
+
+- **Sparky-host (artforge)**: `~/.openclaw/openclaw.json` openrouter baseUrl changed from `http://127.0.0.1:50075/v1` (Sparky's Router) → `https://openrouter.ai/api/v1` direct. Four models staged in the provider array: `nvidia/nemotron-3-super-120b-a12b:free` (default), `nvidia/nemotron-3-nano-30b-a3b:free`, `deepseek/deepseek-v3.2`, `deepseek/deepseek-v3.2:free`. Guy switches via OpenClaw `/model` like Rocky does. Backup: `openclaw.json.bak-pre-switch-retire-2026-04-23`. `sparkys-router.service` stopped + disabled. Port 50075 freed. openclaw-gateway restarted pid 3545570.
+- **Peter Widget (IGOR, port 50085)**: NO CHANGE NEEDED. `start.sh` already overrides LLM_URL to `https://openrouter.ai/api/v1/chat/completions` direct — Switch-free for LLM routing. Models still free=`x-ai/grok-4-fast`, paid=`anthropic/claude-sonnet-4`. Key-file path stayed at `~/.rockys-switch/keys.json` because it's shared with Rocky's Gallery scripts (`fileflare.py`, `gallery_api.py`). Renaming would have broken Shopify automation. Path is cosmetic legacy, service dependency is gone.
+- **Rocky's Switch on IGOR**: systemd service already inactive; `disable`d so it won't auto-start. Config dirs (`~/.rockys-switch/`, `~/.sparksrouter/`) and repos (`~/github/rockys-switch/`, `~/github/sparkys-router/`) left on disk for history.
+
+Live consumers of the old keys.json path to be aware of: `~/portal/src/server.js` (Peter), `~/shopify/rockys-gallery/scripts/fileflare.py`, `~/shopify/rockys-gallery/scripts/gallery_api.py`. All three still function — they read the same keys file, just from its Switch-legacy location.
+
 ## OpenClaw
 - **What it is:** Agent framework. Rocky and Sparky run on it.
 - **Versions (verified 2026-04-22):**
