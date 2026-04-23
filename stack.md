@@ -4,6 +4,12 @@ Every service, tool, and dependency in the Project Sparks ecosystem.
 
 ---
 
+## Microsoft Clarity — rockysgallery.com analytics
+- **Live on rockysgallery.com as of 2026-04-23 evening** (snippet injected via Shopify admin → theme.liquid or Additional scripts).
+- **Project ID:** `wge18xcvkx` (confirmed by curling the live pages and grepping the clarity init call).
+- **API queries** via the Clarity Data Export API (https://clarity.microsoft.com/projects/view/wge18xcvkx/dashboard — same auth pattern as Hoffman Bedding's setup). Unique visitors per URL is the queryable metric for the v1.1 rotation visitor-threshold trigger.
+- **Pairs with Hoffman Bedding's Clarity** (separate project, installed April 14). Two stores, two project IDs, same tooling.
+
 ## Google Drive (Rocky, read-only)
 - **How:** Two FrankenTools at `~/github/frankenclaw/tools/gdrive.py` (commit `9a33d6f`): `gdrive_search` + `gdrive_read`. Auto-discovered by FrankenClaw on Rocky session start.
 - **Why not the MCP server:** The archived `@modelcontextprotocol/server-gdrive` exposes reading as MCP **Resources**, not Tools. OpenClaw's agent surface is tool-centric — Rocky could search but couldn't see the Resource-based read path. Swapping to FrankenClaw owns the full flow in Python and matches the rest of the tool pattern (shopify_*, notebooklm_*).
