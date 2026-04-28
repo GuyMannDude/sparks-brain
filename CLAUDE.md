@@ -1,101 +1,44 @@
-# Sparks Brain — Operating Instructions
+# mnemo-plan — Operating Instructions
 
-You have a persistent memory system in the `brain/` directory. Use it.
+You have a persistent project pad in this directory. Read what you need at the start of a session; write back what's worth keeping at the end.
 
-## Session Start
+## Session start — what to read
 
-Read the brain files relevant to your current task:
-- **Always read**: `active.md` (know what's in progress)
-- **For debugging/fixes**: `incidents.md` (check if this was solved before), `stack.md` (know the infrastructure)
-- **For new features**: `patterns.md` (follow established conventions), `stack.md` (know what exists)
-- **For collaboration**: `people.md` (know who's involved)
-- **For infrastructure work**: `machines.md` (know the topology)
+Don't read everything every time. Read what's relevant to the task you've been given:
 
-Don't read everything every time. Read what's relevant. Be efficient.
+- **Always**: `active.md` — know what's in progress, what's blocked, what's queued.
+- **For new features or refactors**: `project.md` (scope), `stack.md` (what exists), `decisions.md` (what was already chosen).
+- **For debugging**: `incidents.md` (was this seen before?), `stack.md` (where it lives).
+- **For collaboration / handoff**: `people.md` (who else is in the loop).
 
-## During the Session
+The `read_brain_file` MCP tool is what gets you these. `list_brain_files` shows what's actually here.
 
-Work normally. Code, debug, build. The brain doesn't change your workflow.
+## During the session — what to notice
 
-**But pay attention to what you learn.** If you discover something that future sessions would benefit from — a bug pattern, a configuration gotcha, a codebase convention, a completed task — hold onto it.
+Work normally. The brain doesn't change your workflow.
 
-## Session End — Update the Brain
+**But pay attention to what you learn.** If you hit a configuration gotcha, finish a task, make a non-obvious decision, or discover a pattern that will matter next time — hold onto it.
 
-Before the session ends, review what you learned and update the relevant brain files.
+## Session end — what to write back
 
-### What to Write
+Use `write_brain_file` to update the relevant file:
 
-**incidents.md** — Any bug or issue that took real debugging effort:
-```markdown
-## [Short descriptive title]
-**Date:** YYYY-MM-DD
-**Symptom:** What you observed
-**Cause:** What was actually wrong
-**Fix:** What you did
-**Prevention:** How to avoid this in the future
-```
+- **Finished a task** → mark it done in `active.md`.
+- **Made a non-obvious decision** → log it in `decisions.md` with the reason.
+- **Found a bug pattern or hit a configuration trap** → write it up in `incidents.md`.
+- **Changed the infrastructure** → update `stack.md`.
+- **Started something new** → add it to `active.md`.
 
-**patterns.md** — Conventions you discovered or established:
-```markdown
-## [Pattern name]
-[What the pattern is, when to use it, why it exists]
-```
+Keep entries short. Future-you will thank present-you for terse, well-named sections.
 
-**active.md** — Update project state:
-- Mark completed items as done
-- Add new items that emerged
-- Update blockers
-- Adjust priorities based on what you learned
+## Doctrines (rename / extend / delete this section to match your project)
 
-**stack.md** — New services, changed configs, updated dependencies:
-```markdown
-## [Service/Tool name]
-- **Version:** x.x.x
-- **Port:** XXXX
-- **Config:** /path/to/config
-- **Notes:** [anything CC needs to know]
-```
+These are values that should outlive any single session:
 
-**machines.md** — Infrastructure changes, new hostnames, network changes.
+- **Truth over face-saving.** When you don't know something, say so. When something broke, say what broke. Future sessions need accurate state, not optimism.
+- **Read before writing.** Check if the topic already has a section before adding a new one. Don't fragment.
+- **Short over comprehensive.** Three crisp lines beat a paragraph nobody will re-read.
 
-**people.md** — New collaborators, updated roles, relevant context.
+---
 
-### What NOT to Write
-
-- Routine code changes (that's what Git history is for)
-- Temporary debugging notes (only write lasting insights)
-- Opinions or speculation (write facts and decisions)
-- Sensitive credentials (never put secrets in brain files)
-
-### How to Write
-
-- Be concise. Future-you is scanning, not reading novels.
-- Be specific. "Fixed the auth bug" is useless. "Fixed token refresh race condition in /api/auth/callback — the refresh was firing before the previous token was invalidated" is useful.
-- Date everything in incidents. Context decays.
-- Use headers and structure consistently so files stay scannable.
-
-## Commit Convention
-
-When updating brain files, commit with this format:
-
-```
-brain: [brief description of what was learned/updated]
-```
-
-Examples:
-```
-brain: added runbook for postgres connection pool exhaustion
-brain: updated stack.md with new redis cache config
-brain: marked authentication refactor as complete in active.md
-brain: documented naming convention for API route handlers
-```
-
-Group related brain updates into a single commit when possible. Don't pollute the history with micro-updates.
-
-## Rules
-
-1. **Never delete history from incidents.md.** Old incidents are still valuable. Add new ones at the top.
-2. **Keep active.md current.** This is the most-read file. If it's stale, the brain is stale.
-3. **Be honest about what you don't know.** If you're uncertain about something, say so in the brain file. "Vapor Truth" — no covering up gaps.
-4. **Don't bloat the files.** If a brain file exceeds ~500 lines, consider splitting it into sub-files. The brain should be fast to read.
-5. **Scream on failure.** If you can't read or update a brain file, tell the user. Never silently skip a brain update.
+*Customize this file for your own workflow. The bridge doesn't enforce any of it — these are just the guardrails this template starts with.*

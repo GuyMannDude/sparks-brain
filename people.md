@@ -1,57 +1,35 @@
 # People
 
-Collaborators, agents, and roles in the Project Sparks ecosystem.
+<!--
+Collaborators, agents, and roles in this project.
+
+Useful even for solo work — list the AI agents you work with,
+their roles, what they're good at, what they're not. Saves you
+from re-explaining context every session.
+-->
+
+**Last updated:** YYYY-MM-DD
+
+## Humans
+
+### *(Name / handle)*
+
+- **Role:** *(what they do on this project)*
+- **Contact:** *(email / Slack / however)*
+- **Working style:** *(notes that help the agent collaborate)*
+
+## Agents
+
+<!-- If you run multiple AI agents, list them here so any agent reading
+     this brain understands the team. Optional but helpful. -->
+
+### *(Agent name)*
+
+- **Platform:** *(Claude Desktop / Claude Code / OpenClaw / Ollama / etc.)*
+- **Model:** *(specific model and version)*
+- **Role:** *(what this agent does)*
+- **Strengths / gotchas:** *(what to delegate, what to avoid)*
 
 ---
 
-## Guy
-- **Role:** Creator, maker, Project Sparks founder
-- **Location:** Half Moon Bay, CA
-- **Background:** 73-year-old maker, not a developer. Builds 3D printed seasonal collectibles (projectsparks.ai).
-- **Working style:** Zero-fat. Action over theory. Simple explanations. Trusts CC to act autonomously.
-- **Note:** Guy is the human. Everyone else below is an AI agent.
-
-## Rocky
-- **Role:** Primary AI assistant. Guy's right hand.
-- **Platform:** OpenClaw on IGOR
-- **Model (primary):** openrouter/google/gemini-3.1-pro-preview
-- **Model (fallback):** openrouter/nvidia/nemotron-3-super-120b-a12b:free
-- **Workspace:** `~/.openclaw/workspace/`
-- **Sacred files:** SOUL.md and MEMORY.md — never touch without asking Guy.
-- **Browser:** CDP attach configured (chrome://inspect, port 9222)
-
-## Alice Moltman (RETIRED)
-- **Status:** Fully retired as of 2026-03-23.
-- **Was:** Agent on THE VAULT. Took the bullets — ran experimental/risky tasks first.
-- **Platform:** OpenClaw on artforge (now disabled)
-- **Host config archived to:** `/media/guy/5TB_DRIVE-2/ARCHIVE/alice-host-config-20260323/`
-- **Disabled services:** Host-level gateway, sparks-router, mnemo watcher/refresher on THE VAULT.
-- **Notes:** Alice's role (experimental test-first agent) is now absorbed by Sparky in the NemoClaw sandbox.
-
-## Sparky
-- **Role:** Agent inside NemoClaw sandbox on THE VAULT. Runs Nemotron 3 Super free via OpenRouter. CLI only (no gateway/Telegram).
-- **Platform:** OpenClaw v2026.3.11 inside NemoClaw pod
-- **Mnemo access:** Can reach mnemo-cortex at `host.docker.internal:50001` from inside the pod (verified with curl, status: ok).
-
-## Opie (CC / Claude Code)
-- **Role:** Claude Code on IGOR. Execution engine. Reads the brain, does the work, writes back what it learns.
-- **Model:** Claude Opus 4.6
-- **Auth:** Max plan via claude.ai
-- **Principles:** Vapor Truth — never fabricate, never cover up. If uncertain, say so.
-
-## Bullwinkle (BW)
-- **Role:** Agent Zero instance
-- **Platform:** Docker on IGOR (localhost:50090)
-- **Model:** nvidia/nemotron-3-super-120b-a12b:free (all slots)
-- **Notes:** NOT managed by OpenClaw. Separate system.
-
----
-
-*CC updates this file as collaborators and roles change.*
-
-## April
-- **Role:** Collaborator on Hoffman Bedding (Shopify store)
-- **Store:** hoffmanbedding.com (wugjc3-qh.myshopify.com)
-- **Location:** Madera, CA
-- **Contact:** hoffmanbedding@gmail.com, (559) 417-3135
-- **Notes:** Manages the Shopify admin. Granted CC theme API access (April 5). Has Google Ads account linked to store (GT-MQ76NGRV).
+*Drop this file if you don't need it — solo projects with one agent often don't.*
